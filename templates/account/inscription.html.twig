@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+
+
+{% block body %}
+<div id="app">
+    <div class="container">
+        <h1 class="text-center">Inscription</h1>
+
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary mb-5">Valider l'inscription</button>
+        {{ form_end(form) }}
+
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/browse.js') }}"></script>
+{% endblock %}
+
+

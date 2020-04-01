@@ -1,0 +1,46 @@
+{% block _devis_description_widget %}
+    <p>Ajoutez ou supprimez une description</p>
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <button id="add-description" type="button" class="btn btn-primary">Ajouter une prestation</button>
+    </div>
+{% endblock %}
+
+{#Je supprime les infos inutiles#}
+{% block _devis_description_entry_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{# J'affiche les champs dont j'ai besoin #}
+{% block _devis_description_entry_widget %}
+    <div class="form-group presta">
+
+        <hr class="mt-5" style="border-color:red; ">
+        <p class="text-center" >Merci de remplir les champs ! </p>
+        <hr style="border-color:red; ">
+        <div class="row">
+            <div class="col-md-12" id="">
+                <label for="">Prestation</label>
+                {{ form_widget(form.prestation) }}
+                {{ form_errors(form.prestation) }}
+                <label for="">Quantité</label>
+                {{ form_widget(form.quantite) }}
+                {{ form_errors(form.quantite) }}
+                <label for="">Unité</label>
+                {{ form_widget(form.unite) }}
+                {{ form_errors(form.unite) }}
+                <label for="">Prix Unitaire</label>
+                {{ form_widget(form.prix) }}
+                {{ form_errors(form.prix) }}
+                <label for="">Tva</label>
+                {{ form_widget(form.tva) }}
+                {{ form_errors(form.tva) }}
+                <label for="">Montant HT</label>
+                {{ form_widget(form.montant) }}
+                {{ form_errors(form.montant) }}
+            </div>
+        </div>
+        <button type="button" class="btn btn-danger mt-2" id="">Supprimer</button>
+
+    </div>
+{% endblock %}

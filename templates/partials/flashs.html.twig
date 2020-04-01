@@ -1,0 +1,12 @@
+{# Messages flashs #}
+		{% for label, messages in app.flashes %}
+            <div class=" container-fluid col-md-6 mt-3 text-center">
+                <div class="alert alert-{{ label }} ">
+                    {% for message in messages %}
+                        <p>
+                            {{ message | raw }}
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des clients{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h2 class="text-center">Liste des clients</h2>
+
+        <div class="form-group mt-5">
+            <label for="" class="">Recherche / Nom de famille</label>
+            <input type="text" class="form-control" id="search">
+        </div>
+        <button class="btn btn-primary" id="btnSearch">Rechercher</button>
+
+        <table class="table table-dark mt-5 mb-5">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col" class="text-center">Fiche client</th>
+                <th scope="col" class="text-center">Modifier</th>
+                <th scope="col" class="text-center">Supprimer</th>
+            </tr>
+            </thead>
+            <tbody id="liste-client">
+            {% for client in clients %}
+                {% if client.entreprise.id == app.user.id %}
+                    <tr class="liste">
+                        <th scope="row">{{ client.id }}</th>
+                        <td class="nom">{{ client.nom }}</td>
+                        <td>{{ client.prenom }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('client_show', {'id': client.id}) }}"
+                               class="btn btn-sm btn-success voir"
+                               data-toggle="modal"
+                               data-target="#staticBackdrop">Voir
+                            </a>
+                        </td>
+                        <td class="text-center"><a href="{{ path('client_edit', {'id':client.id}) }}"
+                                                   class="btn btn-sm btn-info">Modifier</a></td>
+
+                        <td class="text-center"><a href="{{ path('client_delete', {'id':client.id}) }}"
+                                                   class="btn btn-sm btn-danger"
+                                                   onclick="return(confirm('Confirmez-vous la suppression ?'))">Supprimer</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% for client in clients %}
+    <!-- Modal fiche client -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <a id="btn-nouveau-devis" href="" class="btn btn-success">Nouveau devis</a>
+                    <a  id="liste-devis" href="" class="btn btn-info">Voir les Devis</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/searchClient.js') }}"></script>
+    <script src="{{ asset('js/ficheClient.js') }}"></script>
+{% endblock %}

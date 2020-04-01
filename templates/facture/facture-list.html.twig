@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des factures{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center mt-2">Factures de {{ client.prenom }} {{ client.nom }} </h1>
+        <table class="table table-dark mt-5">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center" >#</th>
+                <th scope="col" class="text-center">Date Facture/Devis</th>
+                <th scope="col" class="text-center">Total Facture/Devis</th>
+                <th scope="col" class="text-center">Total acomptes</th>
+                <th scope="col" class="text-center">Capital restant dû</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for facture in factures %}
+            <tr>
+                <th scope="row">2020{{ facture.id }}</th>
+                <td class="text-center">{{ facture.dateFacture | date("d/m/Y") }}</td>
+                <td class="text-center">{{ facture.montantTtc | number_format(2, ',', ' ') }} €</td>
+                <td class="text-center">{{ facture.totalAcompte }}</td>
+                <td class="text-center">{{ facture.crd }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Devis{% endblock %}
+
+{% form_theme form 'devis/_collection.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="text-center">Nouveau devis pour {{ client.nom }} {{ client.prenom }}</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-success mb-5">Valider</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block _devis_description_widget %}
+    <p>Ajoutez ou supprimez une description</p>
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <button id="add-description" type="button" class="btn btn-primary">Ajouter une prestation</button>
+    </div>
+{% endblock %}
+
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/addPrestation.js') }}"></script>
+{% endblock %}
