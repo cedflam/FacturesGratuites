@@ -6,6 +6,10 @@
 
     <div class="container">
         <h1 class="text-center mt-3">Devis de {{ client.nom }} {{ client.prenom }}</h1>
+        <div class="form-group mt-5" id="searchDevis">
+            <label for="" class="">Rechercher</label>
+            <input name="search" type="text" class="form-control">
+        </div>
         <table class="table table-dark mt-5">
             <thead>
             <tr>
@@ -50,4 +54,8 @@
 
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/searchClient.js') }}"></script>
 {% endblock %}
