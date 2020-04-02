@@ -13,13 +13,13 @@
 
 {# J'affiche les champs dont j'ai besoin #}
 {% block _devis_description_entry_widget %}
-    <div class="form-group presta">
+    <div class="form-group presta " id="{{ id }}">
 
         <hr class="mt-5" style="border-color:red; ">
         <p class="text-center" >Merci de remplir les champs ! </p>
         <hr style="border-color:red; ">
         <div class="row">
-            <div class="col-md-12" id="">
+            <div class="col-md-12">
                 <label for="">Prestation</label>
                 {{ form_widget(form.prestation) }}
                 {{ form_errors(form.prestation) }}
@@ -40,7 +40,7 @@
                 {{ form_errors(form.montant) }}
             </div>
         </div>
-        <button type="button" class="btn btn-danger mt-2" id="">Supprimer</button>
+        <button type="button" class="btn btn-danger mt-2 delete" data-target="{{ id }}" >Supprimer</button>
 
     </div>
 {% endblock %}

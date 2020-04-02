@@ -27,6 +27,8 @@ $.ajax({
             totalCrd += crd;
             totalAcompte += acompte;
 
+            }
+
             //Chart
             google.charts.load('current', {'packages': ['bar']});
             google.charts.setOnLoadCallback(drawChart);
@@ -36,7 +38,6 @@ $.ajax({
                     ['2020', totalTtc, totalAcompte, totalCrd],
 
                 ]);
-            }
 
 
             var options = {

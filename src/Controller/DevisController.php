@@ -4,8 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Entity\Devis;
+use App\Entity\Entreprise;
 use App\Entity\Facture;
 use App\Form\DevisType;
+use App\Repository\ClientRepository;
+use App\Repository\DevisRepository;
+use App\Repository\EntrepriseRepository;
 use App\Repository\FactureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -92,6 +96,23 @@ class DevisController extends AbstractController
     }
 
     /**
+     * Permet de voir la liste des devis d'une entreprise
+     *
+     * @Route("/devis/show-all/{id}", name="devis_show_all")
+     *
+     * @param Entreprise $entreprise
+     * @param FactureRepository $factures
+     * @return Response
+     */
+    public function devisShowAll(Entreprise $entreprise, FactureRepository $factures)
+    {
+        return $this->render('devis/devis-list-all.html.twig', [
+            'lesFactures'=>$factures->findBy(['entreprise'=>$entreprise->getId()]),
+
+        ]);
+    }
+
+    /**
      * Permet de modifier un devis
      *
      * @Route("/devis/edit/{id}", name="devis_edit")
@@ -139,8 +160,7 @@ class DevisController extends AbstractController
 
         return $this->render('devis/devis-edit.html.twig',[
             'form'=>$form->createView(),
-
-
+            'devis'=>$devis
         ]);
     }
 
@@ -164,3 +184,7 @@ class DevisController extends AbstractController
         return $this->redirectToRoute('client');
     }
 }
+
+/*************************Ajax********************/
+
+

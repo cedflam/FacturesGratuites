@@ -3,9 +3,9 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container" >
         {% if app.user.id == entreprise.id %}
-            <div class="container mx-auto d-block">
+            <div class="container mx-auto d-block" >
                 <img src="/images/logos/{{ entreprise.logo }}" alt="" class="img-fluid mx-auto d-block mt-2" id="logo">
                 <h2 class="text-center mb-5">{{ app.user.intitule }}</h2>
                 <input class="idEntreprise" type="hidden" value="{{ path('entreprise_chart', {'id': app.user.id}) }}">
@@ -17,18 +17,18 @@
                                     Accès rapide
                                 </h3>
                             </div>
-                            <div class="card-body mx-auto d-block p-5">
-                                <div class="row">
-                                    <div class="col-md-12 mx-auto d-block p-5">
-                                        <a href="{{ path('client_add') }}" class="btn btn-warning mb-2 mr-3">Nouveau
-                                            client</a>
-                                        <a href="{{ path('client') }}" class="btn btn-warning mb-2">Liste des
-                                            clients</a>
-                                    </div>
-                                </div>
+                            <div class="card-body" id="cardBody" >
+
                             </div>
                             <div class="card-footer mx-auto d-block">
+                                <div class="row">
+                                    <div class="col-md-12 ">
+                                        <a href="{{ path('client_add') }}" class="btn btn-sm btn-success ">Nouveau client</a>
+                                        <a href="{{ path('client') }}" class="btn btn-sm btn-success ">Liste des clients</a>
+                                        <a href="{{ path('devis_show_all',{'id': app.user.id}) }}" class="btn btn-sm btn-primary "> Liste des devis</a>
 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

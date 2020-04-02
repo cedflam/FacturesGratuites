@@ -2,11 +2,14 @@
 
 {% block title %}Modifier un devis{% endblock %}
 
-{% form_theme form 'devis/_collection.html.twig' %}
+{% form_theme form 'partials/_collection.html.twig' %}
 
 {% block body %}
     <div class="container">
-        <h1 class="text-center">Modifier le devis de</h1>
+        <h1 class="text-center">Modifier le devis de
+            {{ devis.facture.client.nom }}
+            {{ devis.facture.client.prenom }}
+        </h1>
 
         {{ form_start(form) }}
         {{ form_widget(form) }}

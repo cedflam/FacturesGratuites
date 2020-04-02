@@ -16,15 +16,22 @@
 
             {% else %}
         </ul>
-        <div class="dropdown mr-5 ml-5">
-            <a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <strong>Mon compte</strong>
+        <div class="dropdown" style="margin-right: 130px;">
+            <a class=" dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
+                <strong class="text-white">Menu</strong>
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{{ path('account_edit') }}"> <i class="fas fa-tachometer-alt"> </i> Modifier compte</a>
+                <a href="{{ path('devis_show_all',{'id': app.user.id}) }}" class="dropdown-item "> <i class="fas fa-file-invoice"></i> Mes devis</a>
+                <a href="{{ path('facture_list') }}" class="dropdown-item "> <i class="fas fa-file-invoice-dollar"></i> Mes factures</a>
+                <div class="dropdown-divider"></div>
+                <a href="{{ path('client') }}" class="dropdown-item "> <i class="fas fa-users"></i> Mes clients</a>
+                <a href="{{ path('client_add') }}" class="dropdown-item "> <i class="fas fa-user-plus"></i> Nouveau client</a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ path('dashboard', {'id': app.user.id}) }}"> <i class="fas fa-chart-line"> </i> Dashboard</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ path('account_edit') }}"> <i class="fas fa-tachometer-alt"> </i> Modifier compte</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ path('account_logout') }}"> <i class="fas fa-sign-out-alt"></i> Déconnexion</a>
 
