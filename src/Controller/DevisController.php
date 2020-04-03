@@ -7,9 +7,8 @@ use App\Entity\Devis;
 use App\Entity\Entreprise;
 use App\Entity\Facture;
 use App\Form\DevisType;
-use App\Repository\ClientRepository;
+use App\Repository\DescriptionRepository;
 use App\Repository\DevisRepository;
-use App\Repository\EntrepriseRepository;
 use App\Repository\FactureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -21,6 +20,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DevisController extends AbstractController
 {
+
+
+
     /**
      * Permet de créer un nouveau devis
      *
@@ -96,6 +98,23 @@ class DevisController extends AbstractController
     }
 
     /**
+     * Permet de consulter et d'imprimer un devis
+     *
+     * @Route("/devis/print/{id}", name="devis_print")
+     *
+     * @param Devis $devis
+     * @param DescriptionRepository $descriptionRepository
+     * @return Response
+     */
+    public function devisPrint(Devis $devis, DescriptionRepository $descriptionRepository)
+    {
+        return $this->render('devis/devis-print.html.twig',[
+            'devis'=> $devis,
+            'lesDescriptions'=> $descriptionRepository->findBy(['devis'=>$devis])
+        ]);
+    }
+
+    /**
      * Permet de voir la liste des devis d'une entreprise
      *
      * @Route("/devis/show-all/{id}", name="devis_show_all")
@@ -163,6 +182,8 @@ class DevisController extends AbstractController
             'devis'=>$devis
         ]);
     }
+
+
 
     /**
      * Permet de supprimer un devis

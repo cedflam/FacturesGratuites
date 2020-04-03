@@ -38,6 +38,9 @@
                 <label for="">Montant HT</label>
                 {{ form_widget(form.montant) }}
                 {{ form_errors(form.montant) }}
+                <label for="">Montant TTC</label>
+                {{ form_widget(form.motantTtc) }}
+                {{ form_errors(form.motantTtc) }}
             </div>
         </div>
         <button type="button" class="btn btn-danger mt-2 delete" data-target="{{ id }}" >Supprimer</button>

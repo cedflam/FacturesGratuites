@@ -33,12 +33,14 @@ class DescriptionType extends AbstractType
             ->add('prix', NumberType::class)
             ->add('tva', ChoiceType::class,[
                 'choices'=>[
+                    'Non assujetis'=> 0,
                     '20%'=>20,
                     '10%'=>10,
                     '5,5%'=>5.5
                 ]
             ])
             ->add('montant', NumberType::class)
+            ->add('motantTtc', NumberType::class)
 
         ;
     }

@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Consulter/Imprimer un devis{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-10">
+                <h1 class="text-center">DEVIS n° 2020{{ devis.id }}</h1>
+                <img src="/images/logos/{{ devis.facture.entreprise.logo }}" class="img-fluid" id="logoPrint"
+                     alt="Logo de l'entreprise"><br>
+                <p>
+                    {% if devis.facture.entreprise.intitule %}
+                        {{ devis.facture.entreprise.intitule }}<br>
+                    {% else %}
+                        {{ devis.facture.client.nom }} {{ devis.facture.client.prenom }}<br>
+                    {% endif %}
+                    {{ devis.facture.entreprise.adresse }}<br>
+                    {{ devis.facture.entreprise.cp }}
+                    {{ devis.facture.entreprise.ville }}
+                </p>
+            </div>
+            <div class="col-10">
+                <p class="float-right">
+                    {{ devis.facture.client.nom }} {{ devis.facture.client.prenom }} <br>
+                    {{ devis.facture.client.adresse }} <br>
+                    {{ devis.facture.client.cp }} {{ devis.facture.client.ville }}
+                </p>
+            </div>
+            <div class="col-9 mt-5">
+                <p class="text-center">
+                    {{ devis.facture.entreprise.ville }}, le {{ devis.dateDevis | date('d/m/Y') }}
+                </p>
+            </div>
+            <table class="table table-striped mt-5">
+                <thead>
+                <tr>
+                    <th scope="col">Prestation</th>
+                    <th scope="col" class="text-center" >Quantité</th>
+                    <th scope="col">Unite</th>
+                    <th scope="col">Prix Unitaire</th>
+                    <th scope="col">TVA</th>
+                    <th scope="col" >Montant HT</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for desc in lesDescriptions %}
+                    <tr>
+                        <td>{{ desc.prestation }}</td>
+                        <td class="text-center">{{ desc.quantite }}</td>
+                        <td>{{ desc.unite }}</td>
+                        <td>{{ desc.prix | number_format(2, ',', ' ') }}€</td>
+                        <td>{{ desc.tva }}%</td>
+                        <td>{{ desc.montant | number_format(2, ',', ' ') }}€</td>
+
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4"></td>
+                    <td class="font-weight-bold">Montant HT</td>
+                    <td colspan="2">{{ devis.montantHt | number_format(2, ',', ' ') }}€</td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td class="font-weight-bold">Montant TTC</td>
+                    <td colspan="2">{{ devis.montantTtc | number_format(2, ',', ' ') }}€</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="container mb-5" style="margin-top: 100px">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <p class=" font-weight-bold">Signature de l'entreprise</p>
+                    </div>
+                    <div class="col-6 text-center">
+                        <p class="font-weight-bold"> Signature du client </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 bg-light mb-5" style="margin-top: 100px">
+                <p class="text-center">
+                    {% if devis.facture.entreprise.intitule %}
+                        <strong> {{ devis.facture.entreprise.intitule }} </strong><br>
+                    {% else %}
+                        <strong> {{ devis.facture.client.nom }} {{ devis.facture.client.prenom }} </strong><br>
+                    {% endif %}
+                    {{ devis.facture.entreprise.adresse }}<br>
+                    {{ devis.facture.entreprise.cp }}
+                    {{ devis.facture.entreprise.ville }}
+                    {{ devis.facture.entreprise.tel }} <br>
+                    {{ devis.facture.entreprise.email }}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

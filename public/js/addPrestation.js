@@ -9,6 +9,7 @@ $('#add-description').on('click', function () {
     //j'injecte le code dans la div
     div.append(tmpl);
 
+
     //Permet de supprimer une Prestation
     let buttonDelete = $('.delete');
     buttonDelete.on('click', function () {

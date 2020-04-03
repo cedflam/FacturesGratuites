@@ -22,7 +22,7 @@ class Description
     private $prestation;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $datePrestation;
 
@@ -55,6 +55,11 @@ class Description
      * @ORM\ManyToOne(targetEntity="App\Entity\Devis", inversedBy="description")
      */
     private $devis;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $motantTtc;
 
 
 
@@ -156,6 +161,18 @@ class Description
     public function setDevis(?Devis $devis): self
     {
         $this->devis = $devis;
+
+        return $this;
+    }
+
+    public function getMotantTtc(): ?float
+    {
+        return $this->motantTtc;
+    }
+
+    public function setMotantTtc(float $motantTtc): self
+    {
+        $this->motantTtc = $motantTtc;
 
         return $this;
     }

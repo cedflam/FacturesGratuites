@@ -1,43 +1,52 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{ path('home') }}"> <strong>Factures-Gratuites.fr</strong></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse " id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            {% if not app.user %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('account_login') }}">Connexion</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('account_inscription') }}">Inscription</a>
-            </li>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ path('home') }}"> <strong>Factures-Gratuites.fr</strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                {% if not app.user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('account_login') }}">Connexion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('account_inscription') }}">Inscription</a>
+                </li>
 
-            {% else %}
-        </ul>
-        <div class="dropdown" style="margin-right: 130px;">
-            <a class=" dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
-                <strong class="text-white">Menu</strong>
-            </a>
+                {% else %}
+            </ul>
+            <div class="dropdown" style="margin-right: 130px;">
+                <a class=" dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
+                    <strong class="text-white">Menu</strong>
+                </a>
 
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a href="{{ path('devis_show_all',{'id': app.user.id}) }}" class="dropdown-item "> <i class="fas fa-file-invoice"></i> Mes devis</a>
-                <a href="{{ path('facture_list') }}" class="dropdown-item "> <i class="fas fa-file-invoice-dollar"></i> Mes factures</a>
-                <div class="dropdown-divider"></div>
-                <a href="{{ path('client') }}" class="dropdown-item "> <i class="fas fa-users"></i> Mes clients</a>
-                <a href="{{ path('client_add') }}" class="dropdown-item "> <i class="fas fa-user-plus"></i> Nouveau client</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ path('dashboard', {'id': app.user.id}) }}"> <i class="fas fa-chart-line"> </i> Dashboard</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ path('account_edit') }}"> <i class="fas fa-tachometer-alt"> </i> Modifier compte</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ path('account_logout') }}"> <i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a href="{{ path('devis_show_all',{'id': app.user.id}) }}" class="dropdown-item "> <i
+                                class="fas fa-file-invoice"></i> Mes devis</a>
+                    <a href="{{ path('facture_list') }}" class="dropdown-item "> <i
+                                class="fas fa-file-invoice-dollar"></i> Mes factures</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{ path('client') }}" class="dropdown-item "> <i class="fas fa-users"></i> Mes clients</a>
+                    <a href="{{ path('client_add') }}" class="dropdown-item "> <i class="fas fa-user-plus"></i> Nouveau
+                        client</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('dashboard', {'id': app.user.id}) }}"> <i
+                                class="fas fa-chart-line"> </i> Dashboard</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('account_edit') }}"> <i class="fas fa-tachometer-alt"> </i>
+                        Modifier compte</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('account_logout') }}"> <i class="fas fa-sign-out-alt"></i>
+                        Déconnexion</a>
 
+                </div>
             </div>
-        </div>
-        {% endif %}
+            {% endif %}
 
-    </div>
-</nav>
+        </div>
+    </nav>
+
+</header>

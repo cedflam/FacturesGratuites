@@ -30,7 +30,7 @@
                 <td class="text-center"> {{ facture.devis.montantTtc | number_format(2, ',', ' ') }}€ </td>
                 <td class="text-center">{{ facture.crd | number_format(2, ',',' ') }}€</td>
                 <td class="text-center">
-                    <a href="" class="btn btn-sm btn-success">
+                    <a href="{{ path('devis_print',{'id': facture.devis.id}) }}" class="btn btn-sm btn-success">
                         <i class="fas fa-eye"></i>
                     </a>
                 </td>
