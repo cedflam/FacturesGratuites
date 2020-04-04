@@ -24,10 +24,12 @@ class DescriptionType extends AbstractType
             ->add('unite', ChoiceType::class,[
                 'choices'=>[
                     'Unité(s)'=>'Unité(s)',
-                    'Gramme(s)'=>'grammes',
-                    'Kilogramme(s)'=>'kilogrammes',
-                    'Centimètre(s)'=>'centimètres',
-                    'Mètre(s)'=> 'mètres',
+                    'Mètres Carrés'=>'m²',
+                    'Mètre(s)'=> 'm',
+                    'Heure(s)'=>'H',
+                    'Centimètre(s)'=>'cm',
+                    'Gramme(s)'=>'g',
+                    'Kilogramme(s)'=>'kg',
                 ]
             ])
             ->add('prix', NumberType::class)

@@ -14,7 +14,6 @@ $('#add-description').on('click', function () {
     let buttonDelete = $('.delete');
     buttonDelete.on('click', function () {
         let id = $(this).data('target');
-        console.log(id);
         $('#'+id).remove();
     });
 });

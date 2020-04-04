@@ -21,10 +21,10 @@ class DevisType extends AbstractType
                 'allow_delete'=>true
             ])
             ->add('montantHt', NumberType::class,[
-                'label'=>"Montant HT"
+                'label'=>"Total HT"
             ])
             ->add('montantTtc', NumberType::class, [
-                'label'=>"Montant TTC"
+                'label'=>"Total TTC"
             ])
 
         ;
