@@ -1,37 +1,40 @@
-/**
- * Permet d'afficher un diagramme de résultats avec google charts
- * @type {jQuery|string|undefined}
- */
+$('document').ready(function () {
+
+    /**
+     * Permet d'afficher un diagramme de résultats avec google charts
+     * @type {jQuery|string|undefined}
+     */
 //je récupère l'id
-let url = $('.idEntreprise').val();
+    let url = $('.idEntreprise').val();
 
 //Requete ajax
-$.ajax({
-    type: "GET",
-    dataType: 'json',
-    url: url,
-    success: function(data){
-        //Propriétés
-        let totalTtc = 0;
-        let totalCrd = 0;
-        let totalAcompte = 0;
+    $.ajax({
+        type: "GET",
+        dataType: 'json',
+        url: url,
+        success: function (data) {
+            //Propriétés
+            let totalTtc = 0;
+            let totalCrd = 0;
+            let totalAcompte = 0;
 
-        //je boucle sur les factures
-        for (let i = 0; i < data.facture.length; i++){
-            //Je stocke les montants courants dans des variables
-            let montantTtc = data.facture[i].montantTtc;
-            let crd = data.facture[i].crd;
-            let acompte = data.facture[i].totalAcompte;
-            //Calculs
-            totalTtc += montantTtc;
-            totalCrd += crd;
-            totalAcompte += acompte;
+            //je boucle sur les factures
+            for (let i = 0; i < data.facture.length; i++) {
+                //Je stocke les montants courants dans des variables
+                let montantTtc = data.facture[i].montantTtc;
+                let crd = data.facture[i].crd;
+                let acompte = data.facture[i].totalAcompte;
+                //Calculs
+                totalTtc += montantTtc;
+                totalCrd += crd;
+                totalAcompte += acompte;
 
             }
 
             //Chart
             google.charts.load('current', {'packages': ['bar']});
             google.charts.setOnLoadCallback(drawChart);
+
             function drawChart() {
                 var data = google.visualization.arrayToDataTable([
                     ['Année', "Chiffre d'affaire", 'Encaissé', 'Restant dû'],
@@ -40,19 +43,20 @@ $.ajax({
                 ]);
 
 
-            var options = {
-                chart: {
-                    title: 'Tableau de bord',
-                    subtitle: "Résultat de l'année en cours",
-                }
-            };
-            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-            chart.draw(data, google.charts.Bar.convertOptions(options));
+                var options = {
+                    chart: {
+                        title: 'Tableau de bord',
+                        subtitle: "Résultat de l'année en cours",
+                    }
+                };
+                var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+                chart.draw(data, google.charts.Bar.convertOptions(options));
+            }
+
+        },
+        error: function () {
+            console.log("une erreur s'est produite");
         }
 
-    },
-    error: function(){
-    console.log("une erreur s'est produite");
-}
-
+    });
 });

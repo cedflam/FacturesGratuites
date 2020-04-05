@@ -1,25 +1,20 @@
 $('document').ready(function () {
+console.log('ready');
 //Propriétés
-    let addAcompte = $('.addAcompte');
-    let modal = $('.add-acompte-body');
+    let editFacture = $('.edit-facture');
+    let modal = $('.edit-facture-body');
     /**
      * Permet d'ajouter un acompte depuis une modal
      */
-    addAcompte.on('click', function () {
-        //J'initialise la modal = vide
+    editFacture.on('click', function () {
+        console.log('click');
         modal.text('');
         //Je définis l'url
         let url = $(this).attr('href');
         console.log(url);
         //requete ajax
         $.get(url, function (data) {
-            //J'ajoute les données dans la modal
             modal.append(data);
-            //J'ajoute l'url à l apropriété action du formaulaire
-            $('form').attr('action', url);
-
         });
-
     });
-
 });

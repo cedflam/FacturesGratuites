@@ -18,7 +18,7 @@
                 <th scope="col" class="text-center">Total Facture</th>
                 <th scope="col" class="text-center">Total acomptes</th>
                 <th scope="col" class="text-center">Capital restant dû</th>
-                <th scope="col" class="text-center">Voir</th>
+                <th scope="col" class="text-center">Editer</th>
                 <th scope="col" class="text-center">Ajout Acompte</th>
                 <th scope="col" class="text-center">Liste Acomptes</th>
 
@@ -35,13 +35,16 @@
                     <td class="text-center">{{ facture.totalAcompte | number_format(2, ',', ' ') }} €</td>
                     <td class="text-center">{{ facture.crd | number_format(2, ',', ' ') }} €</td>
                     <td class="text-center">
-                        <a href="" class="btn btn-sm btn-success">
-                            <i class="fas fa-eye"></i>
+                        <a href="{{ path('facture_edit', {'id': facture.id}) }}"
+                           class="btn btn-sm btn-primary edit-facture"
+                           data-toggle="modal"
+                           data-target="#edit-facture">
+                            <i class="fas fa-pen"></i>
                         </a>
                     </td>
                     <td class="text-center">
                         <a href="{{ path('acompte_add', {'id': facture.id}) }}"
-                           class="btn btn-sm btn-primary addAcompte"
+                           class="btn btn-sm btn-success addAcompte"
                            data-toggle="modal"
                            data-target="#add-acompte">
                             <i class="fas fa-plus-circle"></i>
@@ -60,13 +63,16 @@
             </tbody>
         </table>
     </div>
+    {% include 'facture/modal-edit-facture.html.twig' %}
     {# modal add-acompte #}
     {% include 'facture/modal-add-acompte.html.twig' %}
     {# modal delete-acompte #}
     {% include 'facture/modal-delete-acompte.html.twig' %}
+    {# modal edit-facture #}
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('js/editFacture.js') }}"></script>
     <script src="{{ asset('js/addAcompte.js') }}"></script>
     <script src="{{ asset('js/showAcompte.js') }}"></script>
     <script src="{{ asset('js/searchClient.js') }}"></script>

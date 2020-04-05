@@ -5,12 +5,13 @@ namespace App\Controller;
 use App\Entity\Acompte;
 use App\Entity\Facture;
 use App\Form\AcompteType;
+use App\Form\FactureType;
 use App\Repository\AcompteRepository;
+use App\Repository\DescriptionRepository;
 use App\Repository\FactureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,9 +34,59 @@ class FactureController extends AbstractController
     }
 
     /**
+     * Permet de transmettre l'id de la facture à la modal
+     *
+     * @Route("facture/edit/{id}", name="facture_edit")
+     *
+     * @param Facture $facture
+     * @return Response
+     */
+    public function factureEdit(Facture $facture)
+    {
+        return $this->render('facture/facture-choice.html.twig',[
+            'facture'=>$facture
+        ]);
+    }
+
+    /**
+     * Permet d'fficher la facture d'acompte
+     *
+     * @Route("/facture/acompte/{id}", name="facture_acompte_edit")
+     *
+     * @param Facture $facture
+     * @param DescriptionRepository $descriptionRepository
+     * @return Response
+     */
+    public function factureAcompte(Facture $facture, DescriptionRepository $descriptionRepository)
+    {
+        return $this->render('facture/facture-acompte.html.twig',[
+            'facture'=>$facture,
+            'lesDescriptions'=>$descriptionRepository->findBy(['devis'=>$facture->getDevis()])
+        ]);
+    }
+
+    /**
+     * Permet d'fficher la facture finale
+     *
+     * @Route("/facture/finale/{id}", name="facture_finale_edit")
+     *
+     * @param Facture $facture
+     * @param DescriptionRepository $descriptionRepository
+     * @return Response
+     */
+    public function factureFinale(Facture $facture, DescriptionRepository $descriptionRepository)
+    {
+        return $this->render('facture/facture.html.twig',[
+            'facture'=>$facture,
+            'lesDescriptions'=>$descriptionRepository->findBy(['devis'=>$facture->getDevis()])
+        ]);
+    }
+
+    /**
      * Permet d'jouter un acompte
      *
      * @Route("/facture/acompte/add/{id}", name="acompte_add")
+     *
      * @param Facture $facture
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -88,14 +139,12 @@ class FactureController extends AbstractController
      * @Route("/facture/acompte/show/{id}", name="acompte_show")
      *
      * @param Facture $facture
-     * @param EntityManagerInterface $manager
      * @param AcompteRepository $repo
      * @return Response
      */
-    public function acompteEdit(Facture $facture, EntityManagerInterface $manager, AcompteRepository $repo)
+    public function acompteEdit(Facture $facture, AcompteRepository $repo)
     {
         $acomptes = $repo->findBy(['facture'=>$facture]);
-        dump($acomptes);
 
         return $this->render('facture/show-acompte.html.twig',[
             'acomptes'=> $acomptes,
@@ -108,6 +157,7 @@ class FactureController extends AbstractController
      * Permet de supprimer un acompte
      *
      * @Route("/facture/acompte/delete/{id}", name="acompte_delete")
+     *
      * @param EntityManagerInterface $manager
      * @param Acompte $acompte
      * @param FactureRepository $repo

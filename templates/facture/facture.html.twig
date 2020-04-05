@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facture d'acompte{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-10">
+                <h1 class="text-center">Facture n° 2020{{ facture.id }} </h1>
+                <img src="/images/logos/{{ facture.entreprise.logo }}" class="img-fluid" id="logoPrint"
+                     alt="Logo de l'entreprise"><br>
+                <p>
+                    {% if facture.entreprise.intitule %}
+                        {{ facture.entreprise.intitule }}<br>
+                    {% else %}
+                        {{ facture.client.nom }} {{ facture.client.prenom }}<br>
+                    {% endif %}
+                    {{ facture.entreprise.adresse }}<br>
+                    {{ facture.entreprise.cp }}
+                    {{ facture.entreprise.ville }}
+                </p>
+            </div>
+            <div class="col-10">
+                <p class="float-right">
+                    {{ facture.client.nom }} {{ facture.client.prenom }} <br>
+                    {{ facture.client.adresse }} <br>
+                    {{ facture.client.cp }} {{ facture.client.ville }}
+                </p>
+            </div>
+            <div class="col-9 mt-5">
+                <p class="text-center">
+                    {{ facture.entreprise.ville }}, le {{ facture.dateFacture | date('d/m/Y') }}
+                </p>
+            </div>
+            <table class="table table-striped mt-5">
+                <thead>
+                <tr>
+                    <th scope="col">Prestation</th>
+                    <th scope="col" class="text-center">Quantité</th>
+                    <th scope="col" class="text-center">Unite</th>
+                    <th scope="col" class="text-center">Prix Unitaire</th>
+                    <th scope="col" class="text-center">TVA</th>
+                    <th scope="col" class="text-center">Montant HT</th>
+                    <th scope="col" class="text-center">Montant TTC</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for desc in lesDescriptions %}
+                    <tr>
+                        <td>{{ desc.prestation }}</td>
+                        <td class="text-center">{{ desc.quantite }}</td>
+                        <td class="text-center">{{ desc.unite }}</td>
+                        <td class="text-center">{{ desc.prix | number_format(2, ',', ' ') }}€</td>
+                        <td class="text-center">{{ desc.tva }}%</td>
+                        <td class="text-center">{{ desc.montant | number_format(2, ',', ' ') }}€</td>
+                        <td class="text-center">{{ desc.motantTtc | number_format(2, ',', ' ') }}€</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+            <div class="container-fluid">
+                <table class="table table-striped col-md-6 mt-3  float-right">
+                    <thead>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="5" class=""></td>
+                        <td class="font-weight-bold text-center">Total acompte(s)</td>
+                        <td colspan="2" class="text-center">{{ facture.totalAcompte | number_format(2, ',', ' ') }}€</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="text-center"></td>
+                        <td class="font-weight-bold text-center">Restant dû</td>
+                        <td colspan="2" class="text-center">{{ facture.crd | number_format(2, ',', ' ') }}€</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="text-center"></td>
+                        <td class="font-weight-bold text-center">Total HT</td>
+                        <td colspan="2" class="text-center">{{ facture.montantHt | number_format(2, ',', ' ') }}€</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="text-center"></td>
+                        <td class="font-weight-bold text-center">Total TTC</td>
+                        <td colspan="2" class="text-center">{{ facture.montantTtc | number_format(2, ',', ' ') }}€</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="container mb-5" style="margin-top: 100px">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <p class=" font-weight-bold">Signature de l'entreprise</p>
+                    </div>
+                    <div class="col-6 text-center">
+                        <p class="font-weight-bold"> Signature du client </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 bg-light mb-5" style="margin-top: 100px">
+                <p class="text-center">
+                    {% if facture.entreprise.intitule %}
+                        <strong> {{ facture.entreprise.intitule }} </strong><br>
+                    {% else %}
+                        <strong> {{ facture.client.nom }} {{ facture.client.prenom }} </strong><br>
+                    {% endif %}
+                    {{ facture.entreprise.adresse }}<br>
+                    {{ facture.entreprise.cp }}
+                    {{ facture.entreprise.ville }}
+                    {{ facture.entreprise.tel }} <br>
+                    {{ facture.entreprise.email }}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

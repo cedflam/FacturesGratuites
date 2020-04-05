@@ -4,11 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Entity\Devis;
-use App\Entity\Entreprise;
 use App\Entity\Facture;
 use App\Form\DevisType;
 use App\Repository\DescriptionRepository;
-use App\Repository\DevisRepository;
 use App\Repository\FactureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -20,9 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DevisController extends AbstractController
 {
-
-
-
     /**
      * Permet de créer un nouveau devis
      *
@@ -117,16 +112,15 @@ class DevisController extends AbstractController
     /**
      * Permet de voir la liste des devis d'une entreprise
      *
-     * @Route("/devis/show-all/{id}", name="devis_show_all")
+     * @Route("/devis/show-all/", name="devis_show_all")
      *
-     * @param Entreprise $entreprise
      * @param FactureRepository $factures
      * @return Response
      */
-    public function devisShowAll(Entreprise $entreprise, FactureRepository $factures)
+    public function devisShowAll( FactureRepository $factures)
     {
         return $this->render('devis/devis-list-all.html.twig', [
-            'lesFactures'=>$factures->findBy(['entreprise'=>$entreprise->getId()]),
+            'lesFactures'=>$factures->findBy(['entreprise'=>$this->getUser()]),
 
         ]);
     }
@@ -174,7 +168,7 @@ class DevisController extends AbstractController
                 "Le devis a bien été modifié !"
             );
 
-            return $this->redirectToRoute('client');
+            return $this->redirectToRoute('devis_show_all');
         }
 
         return $this->render('devis/devis-edit.html.twig',[

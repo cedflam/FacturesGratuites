@@ -12,12 +12,7 @@ class FactureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateFacture')
             ->add('message')
-            ->add('totalAcompte')
-            ->add('crd')
-            ->add('montantHt')
-            ->add('montantTtc')
         ;
     }
 
