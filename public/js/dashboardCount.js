@@ -1,7 +1,7 @@
 $('document').ready(function () {
 
     /**
-     * Permet d'afficher le nombre de client dans des badges
+     * Permet d'afficher le nombre de client dans
      */
 
     let url = $('.idEntreprise').val();

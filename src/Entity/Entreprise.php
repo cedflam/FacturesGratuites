@@ -48,7 +48,7 @@ class Entreprise implements UserInterface
      *     propertyPath="password",
      *     message="Le mot de passe saisi ne correspond pas au précédent ! Essayez à nouveau..."
      * )
-     * @var
+     *
      */
     private $confirmPassword;
 
