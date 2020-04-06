@@ -79,6 +79,31 @@ class EntrepriseType extends AbstractType
                 'Email',
                 "Entrez votre adresse email."
             ))
+            ->add('mentionLegale1', TextType::class, [
+                'label'=>'Mention Légale',
+                'required'=>false,
+                'attr'=>[
+                    'placeholder'=> "30% à l'acceptation du devis, 40% au milieu, 20% à la livraison"
+                ]
+            ])
+            ->add('mentionLegale2', TextType::class, [
+                'label'=>'Mention Légale',
+                'required'=>false,
+                'attr'=>[
+                    'placeholder'=> "Non assujetti à la TVA"
+                ]
+            ])
+            ->add('mentionLegale3', TextType::class, [
+                'label'=>'Mention Légale',
+                'required'=>false,
+                'attr'=>[
+                    'placeholder'=> "Autre mention légale..."
+                ]
+            ])
+            ->add('rcs', TextType::class, $this->addOption(
+                'RCS',
+                "RCS Pontoise n° ..."
+            ))
             ->add('password', PasswordType::class, $this->addOption(
                 'Mot de passe',
                 "Entrez votre mot de passe (Supérieur à 6 caractères)."

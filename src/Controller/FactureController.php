@@ -16,12 +16,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class FactureController extends AbstractController
 {
     /**
      * Permet d'afficher la liste des factures
      *
      * @Route("/facture/list", name="facture_list")
+     *
+     * @Security("is_granted('ROLE_USER') and user.getToken() === '' ")
      *
      * @param FactureRepository $repo
      * @return Response
@@ -38,7 +41,7 @@ class FactureController extends AbstractController
      *
      * @Route("facture/edit/{id}", name="facture_edit")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === facture.getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === facture.getEntreprise().getId() and user.getToken() === '' ")
      *
      * @param Facture $facture
      * @return Response
@@ -55,7 +58,7 @@ class FactureController extends AbstractController
      *
      * @Route("/facture/acompte/{id}", name="facture_acompte_edit")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === facture.getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === facture.getEntreprise().getId() and user.getToken() === '' ")
      *
      * @param Facture $facture
      * @param DescriptionRepository $descriptionRepository
@@ -74,7 +77,7 @@ class FactureController extends AbstractController
      *
      * @Route("/facture/finale/{id}", name="facture_finale_edit")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === facture.getEntreprise().getId() and user.getToken() === '' ")
      *
      * @param Facture $facture
      * @param DescriptionRepository $descriptionRepository
@@ -93,7 +96,7 @@ class FactureController extends AbstractController
      *
      * @Route("/facture/acompte/add/{id}", name="acompte_add")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === facture.getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === facture.getEntreprise().getId() and user.getToken() === '' ")
      *
      * @param Facture $facture
      * @param Request $request
@@ -146,7 +149,7 @@ class FactureController extends AbstractController
      *
      * @Route("/facture/acompte/show/{id}", name="acompte_show")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === facture.getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === facture.getEntreprise().getId() and user.getToken() === '' ")
      *
      * @param Facture $facture
      * @param AcompteRepository $repo
@@ -168,7 +171,7 @@ class FactureController extends AbstractController
      *
      * @Route("/facture/acompte/delete/{id}", name="acompte_delete")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === acompte.getFacture().getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === acompte.getFacture().getEntreprise().getId() and user.getToken() === '' ")
      *
      * @param EntityManagerInterface $manager
      * @param Acompte $acompte
@@ -205,7 +208,4 @@ class FactureController extends AbstractController
             'lesFactures'=> $repo->findAll()
        ]);
     }
-
-
-
 }

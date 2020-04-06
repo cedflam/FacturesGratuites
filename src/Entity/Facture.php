@@ -26,10 +26,6 @@ class Facture
      */
     private $dateFacture;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $message;
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -99,17 +95,6 @@ class Facture
         return $this;
     }
 
-    public function getMessage(): ?string
-    {
-        return $this->message;
-    }
-
-    public function setMessage(string $message): self
-    {
-        $this->message = $message;
-
-        return $this;
-    }
 
     public function getTotalAcompte(): ?float
     {

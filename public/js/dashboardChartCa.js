@@ -1,5 +1,4 @@
 $('document').ready(function () {
-
     /**
      * Permet d'afficher un diagramme de résultats avec google charts
      * @type {jQuery|string|undefined}
@@ -45,11 +44,11 @@ $('document').ready(function () {
 
                 var options = {
                     chart: {
-                        title: 'Tableau de bord',
-                        subtitle: "Résultat de l'année en cours",
+                        title: "Chiffre d'affaire",
+
                     }
                 };
-                var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+                var chart = new google.charts.Bar(document.getElementById('chiffres'));
                 chart.draw(data, google.charts.Bar.convertOptions(options));
             }
 

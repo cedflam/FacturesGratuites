@@ -21,6 +21,8 @@ class ClientController extends AbstractController
      *
      * @Route("/client", name="client")
      *
+     * @Security("is_granted('ROLE_USER') and user.getToken() === '' ")
+     *
      * @param ClientRepository $repo
      * @return Response
      */
@@ -70,7 +72,7 @@ class ClientController extends AbstractController
      *
      * @Route("/client/edit/{id}", name="client_edit")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId() and user.getToken() == '' ")
      *
      * @param Client $client
      * @param Request $request
@@ -107,7 +109,7 @@ class ClientController extends AbstractController
      *
      * @Route("/client/delete/{id}", name="client_delete")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId() and user.getToken() === '' ")
      *
      * @param Client $client
      * @param EntityManagerInterface $manager

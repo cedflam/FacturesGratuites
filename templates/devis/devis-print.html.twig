@@ -6,12 +6,13 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-10">
-                <h1 class="text-center">DEVIS n° 2020{{ devis.id }}</h1>
-                <img src="/images/logos/{{ devis.facture.entreprise.logo }}" class="img-fluid" id="logoPrint"
+                <h1 class="float-right">DEVIS n° 2020{{ devis.id }}</h1>
+                <img src="/images/logos/{{ devis.facture.entreprise.logo | url_encode }}" class="img-fluid"
+                     id="logoPrint"
                      alt="Logo de l'entreprise"><br>
                 <p>
                     {% if devis.facture.entreprise.intitule %}
-                        {{ devis.facture.entreprise.intitule }}<br>
+                       <strong>{{ devis.facture.entreprise.intitule }}</strong><br>
                     {% else %}
                         {{ devis.facture.client.nom }} {{ devis.facture.client.prenom }}<br>
                     {% endif %}
@@ -32,15 +33,15 @@
                     {{ devis.facture.entreprise.ville }}, le {{ devis.dateDevis | date('d/m/Y') }}
                 </p>
             </div>
-            <table class="table table-striped mt-5">
+            <table class="table table-striped mt-2">
                 <thead>
                 <tr>
                     <th scope="col">Prestation</th>
-                    <th scope="col" class="text-center" >Quantité</th>
+                    <th scope="col" class="text-center">Quantité</th>
                     <th scope="col">Unite</th>
                     <th scope="col">Prix Unitaire</th>
                     <th scope="col">TVA</th>
-                    <th scope="col" >Montant HT</th>
+                    <th scope="col">Montant HT</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,18 +56,31 @@
 
                     </tr>
                 {% endfor %}
+                </tbody>
+            </table>
+
+
+            <div class="col-md-6 mt-3">
+                <p>{{ devis.facture.entreprise.mentionLegale1 }}</p>
+                <p>{{ devis.facture.entreprise.mentionLegale2 }}</p>
+                <p>{{ devis.facture.entreprise.mentionLegale3 }}</p>
+            </div>
+            <table class="table table-striped col-6 mt-3 float-right">
+                <tbody>
                 <tr>
                     <td colspan="4"></td>
-                    <td class="font-weight-bold">Total HT</td>
-                    <td colspan="2">{{ devis.montantHt | number_format(2, ',', ' ') }}€</td>
+                    <td class="font-weight-bold text-center">Total HT</td>
+                    <td colspan="2" class="text-center">{{ devis.montantHt | number_format(2, ',', ' ') }}€</td>
                 </tr>
                 <tr>
                     <td colspan="4"></td>
-                    <td class="font-weight-bold">Total TTC</td>
-                    <td colspan="2">{{ devis.montantTtc | number_format(2, ',', ' ') }}€</td>
+                    <td class="font-weight-bold text-center">Total TTC</td>
+                    <td colspan="2" class="text-center">{{ devis.montantTtc | number_format(2, ',', ' ') }}€</td>
                 </tr>
                 </tbody>
             </table>
+
+
             <div class="container mb-5" style="margin-top: 100px">
                 <div class="row">
                     <div class="col-6 text-center">
@@ -88,7 +102,9 @@
                     {{ devis.facture.entreprise.cp }}
                     {{ devis.facture.entreprise.ville }}
                     {{ devis.facture.entreprise.tel }} <br>
-                    {{ devis.facture.entreprise.email }}
+                    {{ devis.facture.entreprise.email }}<br>
+                    {{ devis.facture.entreprise.rcs }}
+
                 </p>
             </div>
         </div>

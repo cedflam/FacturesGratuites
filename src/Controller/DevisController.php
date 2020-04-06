@@ -22,7 +22,7 @@ class DevisController extends AbstractController
     /**
      * Permet de créer un nouveau devis
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId() and user.getToken() === ''")
      *
      * @Route("/devis/new/{id}", name="devis_add")
      *
@@ -83,7 +83,7 @@ class DevisController extends AbstractController
      *
      * @Route("/devis/show/{id}", name="devis_show")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId() and user.getToken() === ''")
      *
      * @param Client $client
      * @param FactureRepository $repo
@@ -102,7 +102,7 @@ class DevisController extends AbstractController
      *
      * @Route("/devis/print/{id}", name="devis_print")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId() and user.getToken() === '' ")
      *
      * @param Devis $devis
      * @param DescriptionRepository $descriptionRepository
@@ -139,7 +139,7 @@ class DevisController extends AbstractController
      *
      * @Route("/devis/edit/{id}", name="devis_edit")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId() and user.getToken() === '' ")
      *
      * @param EntityManagerInterface $manager
      * @param Devis $devis
@@ -195,7 +195,7 @@ class DevisController extends AbstractController
      *
      * @Route("/devis/delete/{id}", name="devis_delete")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId() and user.getToken() === '' ")
      *
      * @param Devis $devis
      * @param EntityManagerInterface $manager

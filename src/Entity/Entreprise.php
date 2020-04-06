@@ -90,7 +90,6 @@ class Entreprise implements UserInterface
      */
     private $ville;
 
-
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
@@ -129,6 +128,26 @@ class Entreprise implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $token;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mentionLegale1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mentionLegale2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mentionLegale3;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $rcs;
 
     public function __construct()
     {
@@ -396,6 +415,54 @@ class Entreprise implements UserInterface
     public function setToken(string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    public function getMentionLegale1(): ?string
+    {
+        return $this->mentionLegale1;
+    }
+
+    public function setMentionLegale1(?string $mentionLegale1): self
+    {
+        $this->mentionLegale1 = $mentionLegale1;
+
+        return $this;
+    }
+
+    public function getMentionLegale2(): ?string
+    {
+        return $this->mentionLegale2;
+    }
+
+    public function setMentionLegale2(?string $mentionLegale2): self
+    {
+        $this->mentionLegale2 = $mentionLegale2;
+
+        return $this;
+    }
+
+    public function getMentionLegale3(): ?string
+    {
+        return $this->mentionLegale3;
+    }
+
+    public function setMentionLegale3(?string $mentionLegale3): self
+    {
+        $this->mentionLegale3 = $mentionLegale3;
+
+        return $this;
+    }
+
+    public function getRcs(): ?string
+    {
+        return $this->rcs;
+    }
+
+    public function setRcs(?string $rcs): self
+    {
+        $this->rcs = $rcs;
 
         return $this;
     }

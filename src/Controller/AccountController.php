@@ -329,13 +329,14 @@ class AccountController extends AbstractController
      *
      * @Route("/dashboard/{id}", name="dashboard")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === entreprise.getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === entreprise.getId() and user.getToken() === ''")
      *
      * @param Entreprise $entreprise
      * @return Response
      */
     public function dashbord(Entreprise $entreprise)
     {
+        dump($this->getUser());
             return $this->render('account/dashbord.html.twig', [
                 'entreprise'=> $entreprise
             ]);
@@ -348,7 +349,7 @@ class AccountController extends AbstractController
      *
      * @Route("/chart/{id}", name="entreprise_chart")
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === entreprise.getId()")
+     * @Security("is_granted('ROLE_USER') and user.getId() === entreprise.getId() and user.getToken() === ''")
      *
      * @param Entreprise $entreprise
      * @param SerializerInterface $serializer
