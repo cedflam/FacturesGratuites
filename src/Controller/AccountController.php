@@ -8,6 +8,7 @@ use App\Repository\EntrepriseRepository;
 use App\Services\TokenMailerService;
 use App\Services\UploadImgService;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,11 +19,14 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Serializer\SerializerInterface;
 
+
 class AccountController extends AbstractController
 {
     /**
      * Permet de se connecter
+     *
      * @Route("/login", name="account_login")
+     *
      * @param AuthenticationUtils $utils
      * @return Response
      */
@@ -51,7 +55,9 @@ class AccountController extends AbstractController
 
     /**
      * Permet de gérer une inscription
+     *
      * @Route("/inscription", name="account_inscription")
+     *
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @param UserPasswordEncoderInterface $encoder
@@ -319,24 +325,20 @@ class AccountController extends AbstractController
     }
 
     /**
+     * Permet d'afficher le dashboard
+     *
      * @Route("/dashboard/{id}", name="dashboard")
+     *
+     * @Security("is_granted('ROLE_USER') and user.getId() === entreprise.getId()")
+     *
      * @param Entreprise $entreprise
      * @return Response
      */
     public function dashbord(Entreprise $entreprise)
     {
-        if($this->getUser() === $entreprise){
             return $this->render('account/dashbord.html.twig', [
                 'entreprise'=> $entreprise
             ]);
-        }else{
-            $this->addFlash(
-                'danger',
-                "Vous n'êtes pas autorisé à afficher cette page !"
-            );
-
-            return $this->render('home/index.html.twig');
-        }
     }
 
     /***********************Ajax************************************/
@@ -345,6 +347,9 @@ class AccountController extends AbstractController
      * Permet de récupérer les information de l'entreprise en ajax
      *
      * @Route("/chart/{id}", name="entreprise_chart")
+     *
+     * @Security("is_granted('ROLE_USER') and user.getId() === entreprise.getId()")
+     *
      * @param Entreprise $entreprise
      * @param SerializerInterface $serializer
      * @return Response
@@ -356,6 +361,4 @@ class AccountController extends AbstractController
         ]);
         return new Response($entreprise, Response::HTTP_OK);
     }
-
-
 }

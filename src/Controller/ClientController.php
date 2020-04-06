@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Form\ClientType;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,6 +70,8 @@ class ClientController extends AbstractController
      *
      * @Route("/client/edit/{id}", name="client_edit")
      *
+     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId()")
+     *
      * @param Client $client
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -99,12 +102,12 @@ class ClientController extends AbstractController
         ]);
     }
 
-
-
     /**
      * Permet de supprimer un client
      *
      * @Route("/client/delete/{id}", name="client_delete")
+     *
+     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId()")
      *
      * @param Client $client
      * @param EntityManagerInterface $manager

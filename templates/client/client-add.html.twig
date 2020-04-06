@@ -6,8 +6,9 @@
     <div class="container">
         <h1 class="text-center">Nouveau client</h1>
 
-        {{ form_start(form, {'action': path('acompte_add', { 'id': facture.id })})}}
+        {{ form_start(form) }}
         {{ form_widget(form) }}
+        <button type="submit" class="btn btn-success mb-5">Valider</button>
         {{ form_end(form) }}
 
     </div>

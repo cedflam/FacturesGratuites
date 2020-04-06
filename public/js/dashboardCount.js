@@ -3,6 +3,9 @@ $('document').ready(function () {
     /**
      * Permet d'afficher le nombre de client dans des badges
      */
+
+    let url = $('.idEntreprise').val();
+
     $.ajax({
         type: "GET",
         dataType: 'json',

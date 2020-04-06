@@ -10,6 +10,7 @@ use App\Repository\DescriptionRepository;
 use App\Repository\FactureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +21,8 @@ class DevisController extends AbstractController
 {
     /**
      * Permet de créer un nouveau devis
+     *
+     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId()")
      *
      * @Route("/devis/new/{id}", name="devis_add")
      *
@@ -80,6 +83,8 @@ class DevisController extends AbstractController
      *
      * @Route("/devis/show/{id}", name="devis_show")
      *
+     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId()")
+     *
      * @param Client $client
      * @param FactureRepository $repo
      * @return Response
@@ -97,6 +102,8 @@ class DevisController extends AbstractController
      *
      * @Route("/devis/print/{id}", name="devis_print")
      *
+     * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId()")
+     *
      * @param Devis $devis
      * @param DescriptionRepository $descriptionRepository
      * @return Response
@@ -112,7 +119,9 @@ class DevisController extends AbstractController
     /**
      * Permet de voir la liste des devis d'une entreprise
      *
-     * @Route("/devis/show-all/", name="devis_show_all")
+     * @Route("/devis/show-all", name="devis_show_all")
+     *
+     * @Security("is_granted('ROLE_USER') ")
      *
      * @param FactureRepository $factures
      * @return Response
@@ -129,6 +138,8 @@ class DevisController extends AbstractController
      * Permet de modifier un devis
      *
      * @Route("/devis/edit/{id}", name="devis_edit")
+     *
+     * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId()")
      *
      * @param EntityManagerInterface $manager
      * @param Devis $devis
@@ -184,6 +195,8 @@ class DevisController extends AbstractController
      *
      * @Route("/devis/delete/{id}", name="devis_delete")
      *
+     * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId()")
+     *
      * @param Devis $devis
      * @param EntityManagerInterface $manager
      * @return RedirectResponse
@@ -196,7 +209,7 @@ class DevisController extends AbstractController
 
         $this->addFlash('success', "Le devis à été supprimé !");
 
-        return $this->redirectToRoute('client');
+        return $this->redirectToRoute('devis_show_all');
     }
 }
 

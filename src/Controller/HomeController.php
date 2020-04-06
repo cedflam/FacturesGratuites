@@ -14,11 +14,14 @@ class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
+     * @param EntrepriseRepository $repo
      * @return Response
      */
-    public function index()
+    public function index(EntrepriseRepository $repo)
     {
-        return $this->render('home/index.html.twig');
+        return $this->render('home/index.html.twig',[
+
+        ]);
     }
 
 
