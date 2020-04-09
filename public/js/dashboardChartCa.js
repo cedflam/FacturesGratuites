@@ -41,7 +41,6 @@ $('document').ready(function () {
 
                 ]);
 
-
                 var options = {
                     chart: {
                         title: "Chiffre d'affaire",

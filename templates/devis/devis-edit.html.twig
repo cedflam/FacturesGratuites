@@ -18,15 +18,15 @@
     </div>
 {% endblock %}
 
-{% block _devis_description_widget %}
+{#{% block _devis_description_widget %}
     <p>Ajoutez ou supprimez une description</p>
     {{ form_widget(form) }}
-    <div class="form-group">
-        <button id="add-description" type="button" class="btn btn-primary">Ajouter une prestation</button>
-    </div>
-{% endblock %}
+
+{% endblock %}#}
 
 {% block javascripts %}
     <script src="{{ asset('js/addPrestation.js') }}"></script>
     <script src="{{ asset('js/calculDevisEdit.js') }}"></script>
+    <script src="{{ asset('js/calculDevisAdd.js') }}"></script>
+
 {% endblock %}

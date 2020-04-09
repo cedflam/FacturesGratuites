@@ -42,6 +42,7 @@
                     <th scope="col">Prix Unitaire</th>
                     <th scope="col">TVA</th>
                     <th scope="col">Montant HT</th>
+                    <th scope="col">Montant TTC</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,6 +54,7 @@
                         <td>{{ desc.prix | number_format(2, ',', ' ') }}€</td>
                         <td>{{ desc.tva }}%</td>
                         <td>{{ desc.montant | number_format(2, ',', ' ') }}€</td>
+                        <td>{{ desc.motantTtc | number_format(2, ',', ' ') }}€</td>
 
                     </tr>
                 {% endfor %}

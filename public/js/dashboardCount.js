@@ -13,21 +13,21 @@ $('document').ready(function () {
         success: function (data) {
             console.log(data);
             let clients = data.client.length;
-            let devis = data.facture.length;
+
             //Chart
             google.charts.load('current', {'packages': ['bar']});
             google.charts.setOnLoadCallback(drawChart);
 
             function drawChart() {
                 var data = google.visualization.arrayToDataTable([
-                    ['2020', "Nb Clients", 'Nb Devis'],
-                    ['CLients/Devis', clients, devis],
+                    ['Total', "Nb Clients"],
+                    ['Objectif', 20],
+                    ['CLients', clients]
 
                 ]);
                 var options = {
                     chart: {
-                        title: 'Nombre de clients/devis',
-
+                        title: 'Nombre de clients',
                     }
                 };
                 var chart = new google.charts.Bar(document.getElementById('clients'));

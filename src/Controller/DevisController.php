@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Client;
+use App\Entity\Description;
 use App\Entity\Devis;
 use App\Entity\Facture;
 use App\Form\DevisType;
 use App\Repository\DescriptionRepository;
 use App\Repository\FactureRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -22,10 +24,10 @@ class DevisController extends AbstractController
     /**
      * Permet de créer un nouveau devis
      *
-     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId() and user.getToken() === ''")
-     *
      * @Route("/devis/new/{id}", name="devis_add")
      *
+     * @noinspection PhpUnused
+     * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId() and user.getToken() === ''")
      * @param Client $client
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -38,27 +40,25 @@ class DevisController extends AbstractController
         $form = $this->createForm(DevisType::class, $devis);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             //Je crée une nouvelle facture
             $facture = new Facture();
             //J'attribue l'id du devis aux descriptions
-            foreach($devis->getDescription() as $description){
-                $description->setDevis($devis)
-                ;
+            foreach ($devis->getDescription() as $description) {
+                $description->setDevis($devis);
+                $manager->persist($description);
             }
             //Je paramètre le devis
-            $devis->setDateDevis(new \DateTime())
-                  ->setFacture($facture)
-            ;
+            $devis->setDateDevis(new DateTime())
+                ->setFacture($facture);
             //Je paramètre la facture
             $facture->setDevis($devis)
                 ->setClient($client)
                 ->setEntreprise($this->getUser())
                 ->setMontantHt($devis->getMontantHt())
                 ->setMontantTtc($devis->getMontantTtc())
-                ->setDateFacture(new \DateTime())
-                ->setCrd($devis->getMontantTtc())
-            ;
+                ->setDateFacture(new DateTime())
+                ->setCrd($devis->getMontantTtc());
             $manager->persist($facture);
             $manager->persist($devis);
             $manager->flush();
@@ -72,8 +72,8 @@ class DevisController extends AbstractController
         }
 
         return $this->render('devis/devis-add.html.twig', [
-            'form'=> $form->createView(),
-            'client'=>$client
+            'form' => $form->createView(),
+            'client' => $client
 
         ]);
     }
@@ -85,15 +85,16 @@ class DevisController extends AbstractController
      *
      * @Security("is_granted('ROLE_USER') and user.getId() === client.getEntreprise().getId() and user.getToken() === ''")
      *
+     * @noinspection PhpUnused
      * @param Client $client
      * @param FactureRepository $repo
      * @return Response
      */
     public function devisShow(Client $client, FactureRepository $repo)
     {
-        return $this->render('devis/devis-list.html.twig',[
-           'lesFactures'=> $factures = $repo->findBy(['client'=>$client]),
-            'client'=>$client
+        return $this->render('devis/devis-list.html.twig', [
+            'lesFactures' => $factures = $repo->findBy(['client' => $client]),
+            'client' => $client
         ]);
     }
 
@@ -104,15 +105,16 @@ class DevisController extends AbstractController
      *
      * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId() and user.getToken() === '' ")
      *
+     * @noinspection PhpUnused
      * @param Devis $devis
      * @param DescriptionRepository $descriptionRepository
      * @return Response
      */
     public function devisPrint(Devis $devis, DescriptionRepository $descriptionRepository)
     {
-        return $this->render('devis/devis-print.html.twig',[
-            'devis'=> $devis,
-            'lesDescriptions'=> $descriptionRepository->findBy(['devis'=>$devis])
+        return $this->render('devis/devis-print.html.twig', [
+            'devis' => $devis,
+            'lesDescriptions' => $descriptionRepository->findBy(['devis' => $devis])
         ]);
     }
 
@@ -123,13 +125,14 @@ class DevisController extends AbstractController
      *
      * @Security("is_granted('ROLE_USER') ")
      *
+     * @noinspection PhpUnused
      * @param FactureRepository $factures
      * @return Response
      */
-    public function devisShowAll( FactureRepository $factures)
+    public function devisShowAll(FactureRepository $factures)
     {
         return $this->render('devis/devis-list-all.html.twig', [
-            'lesFactures'=>$factures->findBy(['entreprise'=>$this->getUser()]),
+            'lesFactures' => $factures->findBy(['entreprise' => $this->getUser()]),
 
         ]);
     }
@@ -141,38 +144,45 @@ class DevisController extends AbstractController
      *
      * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId() and user.getToken() === '' ")
      *
+     * @noinspection PhpUnused
      * @param EntityManagerInterface $manager
      * @param Devis $devis
      * @param Request $request
      * @return Response
      * @throws Exception
      */
-    public function devisEdit(EntityManagerInterface $manager, Devis $devis, Request $request)
+    public function devisEdit(Devis $devis, Request $request, EntityManagerInterface $manager)
     {
+
         $form = $this->createForm(DevisType::class, $devis);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
             //J'attribue l'id du devis aux descriptions
-            foreach($devis->getDescription() as $description){
-                $description->setDevis($devis)
-                ;
+            foreach ($devis->getDescription() as $description) {
+                $description->setDevis($devis);
+                $manager->persist($description);
             }
-            //Je récupère la facture correspondante
-            $facture = $devis->getFacture();
-            $facture->setMontantHt($devis->getMontantHt())
-                    ->setMontantTtc($devis->getMontantTtc())
-                    ->setDateFacture(new \DateTime())
-                    ->setCrd($devis->getMontantTtc());
+
             //Je paramètre le devis
-            $devis->setDateDevis(new \DateTime())
-                ->setFacture($facture)
-            ;
-            //J'enregistre en bdd
-            $manager->persist($facture);
+            $devis->setDateDevis(new DateTime());
+
+            //Je paramètre la facture
+            $facture = $devis->getFacture();
+            $facture->setDevis($devis)
+                ->setEntreprise($this->getUser())
+                ->setMontantHt($devis->getMontantHt())
+                ->setMontantTtc($devis->getMontantTtc())
+                ->setDateFacture(new DateTime())
+                ->setCrd($devis->getMontantTtc());
+
+            //J'enregistre
             $manager->persist($devis);
             $manager->flush();
+
+
+
 
             $this->addFlash(
                 'success',
@@ -181,13 +191,11 @@ class DevisController extends AbstractController
 
             return $this->redirectToRoute('devis_show_all');
         }
-
-        return $this->render('devis/devis-edit.html.twig',[
-            'form'=>$form->createView(),
-            'devis'=>$devis
+        return $this->render('devis/devis-edit.html.twig', [
+            'form' => $form->createView(),
+            'devis' => $devis
         ]);
     }
-
 
 
     /**
@@ -197,13 +205,13 @@ class DevisController extends AbstractController
      *
      * @Security("is_granted('ROLE_USER') and user.getId() === devis.getFacture().getEntreprise().getId() and user.getToken() === '' ")
      *
+     * @noinspection PhpUnused
      * @param Devis $devis
      * @param EntityManagerInterface $manager
      * @return RedirectResponse
      */
     public function devisDelete(Devis $devis, EntityManagerInterface $manager)
     {
-
         $manager->remove($devis);
         $manager->flush();
 
@@ -211,8 +219,8 @@ class DevisController extends AbstractController
 
         return $this->redirectToRoute('devis_show_all');
     }
+
+    /*************************Ajax********************/
+
 }
-
-/*************************Ajax********************/
-
 

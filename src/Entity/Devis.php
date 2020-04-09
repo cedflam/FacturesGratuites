@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DevisRepository")
@@ -34,7 +35,8 @@ class Devis
     private $montantTtc;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Description", mappedBy="devis",cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Description", mappedBy="devis",cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $description;
 

@@ -4,9 +4,13 @@ namespace App\Form;
 
 use App\Entity\Devis;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DevisType extends AbstractType
@@ -25,9 +29,9 @@ class DevisType extends AbstractType
             ])
             ->add('montantTtc', NumberType::class, [
                 'label'=>"Total TTC"
-            ])
+            ]);
 
-        ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

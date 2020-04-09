@@ -336,7 +336,6 @@ class AccountController extends AbstractController
      */
     public function dashbord(Entreprise $entreprise)
     {
-        dump($this->getUser());
             return $this->render('account/dashbord.html.twig', [
                 'entreprise'=> $entreprise
             ]);
